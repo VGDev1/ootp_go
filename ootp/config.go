@@ -15,7 +15,7 @@ type Config struct {
 
 // Module represents each item in the modules array.
 type Module struct {
-	ModuleName     string            `json:"module_name"`
+	ContainerName  string            `json:"container_name"`
 	ContainerImage string            `json:"container_image"`
 	RestartPolicy  string            `json:"restart_policy"`
 	PullPolicy     string            `json:"pull_policy"`
@@ -47,7 +47,7 @@ func CompareConfigs(config1, config2 Config) []Module {
 	for _, module1 := range config1.Modules {
 		found := false
 		for _, module2 := range config2.Modules {
-			if module1.ModuleName == module2.ModuleName {
+			if module1.ContainerName == module2.ContainerName {
 				found = true
 				if !cmp.Equal(module1, module2) {
 					changedModules = append(changedModules, module1)
