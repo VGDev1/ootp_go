@@ -1,0 +1,30 @@
+{
+    "config_number": 12345,
+    "modules": [
+      {
+        "module_name": "alpine",
+        "container_image": "docker.io/alpine:latest",
+        "restart_policy": "always",
+        "pull_policy": "always", 
+        "startup_order": 2,
+        "command": "sleep infinity",
+        "env_variables": {
+          "ENV_VAR_1": "value1",
+          "ENV_VAR_2": "value2"
+        }
+      },
+      {
+        "module_name": "busybox",
+        "container_image": "docker.io/busybox:latest",
+        "restart_policy": "on-failure",
+        "pull_policy": "always", 
+        "startup_order": 3,
+        "command": "sleep infinity",
+        "env_variables": {
+          "ENV_VAR_A": "some_value",
+          "ENV_VAR_B": "another_value2"
+        }
+      }
+    ]
+  }
+  
