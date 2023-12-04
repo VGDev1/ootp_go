@@ -41,6 +41,25 @@ func (o *Orchestrator) Watch(configUpdates chan string) {
 	}
 }
 
+func (o *Orchestrator) Listen(cli chan string) {
+	for {
+		select {
+		case command := <-cli:
+			fmt.Println("Received command:", command)
+			switch command {
+			case "restart":
+				fmt.Println("Restarting")
+				o.startModules(o.Config.Modules)
+			case "list":
+				fmt.Println("Listing modules")
+				for _, module := range o.Config.Modules {
+					fmt.Println(module.ContainerName)
+				}
+			}
+		}
+	}
+}
+
 func (o *Orchestrator) startModules(modules []Module) {
 
 	var err error

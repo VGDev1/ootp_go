@@ -64,7 +64,7 @@ func convertMapToSlice(m map[string]string) []string {
 // StopContainer stops a container given its name.
 func (d *Docker) StopContainer(containerName string) error {
 	ctx := context.Background()
-	timeout := 10
+	timeout := 0 //TODO FIX
 	return d.cli.ContainerStop(ctx, containerName, container.StopOptions{Timeout: &timeout})
 }
 

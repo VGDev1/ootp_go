@@ -8,11 +8,15 @@ import (
 func main() {
 	var config = ReadConfig("config.json")
 
+	configUpdates := make(chan string)
+
+	cli := make(chan string)
+
 	docker, err := NewDocker()
 
 	orchestrator := NewOrchestrator(&config, docker)
 
-	configUpdates := make(chan string)
+	commuication, err := NewCommunication("/tmp/ootp.sock", cli)
 
 	listener, err := NewFileListener("config.json", configUpdates)
 	if err != nil {
@@ -26,6 +30,10 @@ func main() {
 	go listener.Watch()
 
 	go orchestrator.Watch(configUpdates)
+
+	go orchestrator.Listen(cli)
+
+	go commuication.Listen()
 
 	<-make(chan struct{})
 }
