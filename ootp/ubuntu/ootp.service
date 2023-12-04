@@ -1,0 +1,12 @@
+[Unit]
+Description=Offline orchestrator
+
+[Service]
+WorkingDirectory=~
+ExecStart=/usr/bin/ootp
+Restart=always
+User=victor
+
+[Install]
+Alias=ootp
+WantedBy=default.target
