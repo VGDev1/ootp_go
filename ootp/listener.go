@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/fsnotify/fsnotify"
@@ -21,6 +22,7 @@ func NewFileListener(fileName string, messages chan string) (*FileListener, erro
 }
 
 func (fl *FileListener) Watch() {
+	fmt.Println("File listener started")
 	defer fl.watcher.Close()
 
 	// Start listening for events.

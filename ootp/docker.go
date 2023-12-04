@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
@@ -33,7 +34,7 @@ func (d *Docker) RunContainer(module Module) error {
 	ctx := context.Background()
 	resp, err := d.cli.ContainerCreate(ctx, &container.Config{
 		Image: module.ContainerImage,
-		Cmd:   []string{"sleep", "1000"},
+		Cmd:   strings.Split(module.Command, " "),
 		Env:   convertMapToSlice(module.EnvVariables),
 	}, nil, nil, nil, module.ContainerName)
 	if err != nil {

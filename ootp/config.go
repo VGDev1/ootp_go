@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
+	"sort"
 
 	"github.com/google/go-cmp/cmp"
 )
@@ -26,8 +28,15 @@ type Module struct {
 
 func check(e error) {
 	if e != nil {
-		panic(e)
+		fmt.Println(e)
 	}
+}
+
+func sortbyStartupOrder(modules []Module) []Module {
+	sort.Slice(modules, func(i, j int) bool {
+		return modules[i].StartupOrder < modules[j].StartupOrder
+	})
+	return modules
 }
 
 // define a function to read the config.json and return a Config struct
@@ -61,4 +70,16 @@ func CompareConfigs(config1, config2 Config) []Module {
 	}
 
 	return changedModules
+}
+
+func needRestart(firstModuleToStart Module, modules []Module) []Module {
+	var modulesToRestart []Module
+
+	for _, module := range modules {
+		if module.StartupOrder >= firstModuleToStart.StartupOrder {
+			modulesToRestart = append(modulesToRestart, module)
+		}
+	}
+
+	return modulesToRestart
 }

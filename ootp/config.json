@@ -2,26 +2,26 @@
     "config_number": 12345,
     "modules": [
       {
-        "container_name": "alpine",
-        "container_image": "docker.io/alpine:latest",
+        "container_name": "alpine2",
+        "container_image": "docker.io/alpine:3.18",
         "restart_policy": "always",
         "pull_policy": "always", 
         "startup_order": 2,
-        "command": "sh -c 'echo Hello World! && sleep 1d'",
+        "command": "tail -f /dev/null",
         "env_variables": {
-          "ENV_VAR_1": "value1",
+          "ENV_VAR_1": "value2",
           "ENV_VAR_2": "value2"
         }
       },
       {
-        "container_name": "busybox",
-        "container_image": "docker.io/busybox:latest",
+        "container_name": "alpine1",
+        "container_image": "docker.io/alpine:3",
         "restart_policy": "on-failure",
         "pull_policy": "always", 
-        "startup_order": 3,
-        "command": "sleep infinity",
+        "startup_order": 1,
+        "command": "tail -f /dev/null",
         "env_variables": {
-          "ENV_VAR_A": "some_value",
+          "ENV_VAR_A": "some_value10",
           "ENV_VAR_B": "another_value2"
         }
       }
