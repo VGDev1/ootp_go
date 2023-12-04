@@ -36,7 +36,11 @@ func (d *Docker) RunContainer(module Module) error {
 		Image: module.ContainerImage,
 		Cmd:   strings.Split(module.Command, " "),
 		Env:   convertMapToSlice(module.EnvVariables),
-	}, nil, nil, nil, module.ContainerName)
+	}, &container.HostConfig{
+		RestartPolicy: container.RestartPolicy{
+			Name: module.RestartPolicy,
+		},
+	}, nil, nil, module.ContainerName)
 	if err != nil {
 		return err
 	}
