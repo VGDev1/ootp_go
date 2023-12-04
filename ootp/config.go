@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"sort"
@@ -44,9 +45,10 @@ func ReadConfig(file string) (*Config, error) {
 
 	jsonStr, err := os.ReadFile("config.json")
 	fmt.Println(string("my json" + string(jsonStr)))
+
 	if err != nil || len(jsonStr) == 0 {
 		fmt.Println("could not read config.json")
-		return nil, err // Return an error if the file can't be read
+		return nil, errors.New("could not read config.json")
 	}
 
 	var config Config

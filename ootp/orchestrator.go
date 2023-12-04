@@ -23,7 +23,7 @@ func (o *Orchestrator) Watch(configUpdates chan string) {
 		case update := <-configUpdates:
 			fmt.Println(update)
 			configNew, err := ReadConfig("config.json")
-			if err != nil || configNew == nil {
+			if err != nil {
 				fmt.Println("Error reading config:", err)
 				continue
 			}

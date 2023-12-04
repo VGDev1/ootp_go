@@ -9,13 +9,13 @@
         "startup_order": 2,
         "command": "tail -f /dev/null",
         "env_variables": {
-          "ENV_VAR_1": "1",
+          "ENV_VAR_1": "Value2",
           "ENV_VAR_2": "value_1"
         }
       },
       {
         "container_name": "alpine1",
-        "container_image": "docker.io/alpine:3",
+        "container_image": "docker.io/alpine:3.18",
         "restart_policy": "on-failure",
         "pull_policy": "always", 
         "startup_order": 1,
