@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	var config = ReadConfig("config.json")
+	var config, err = ReadConfig("config.json")
 
 	configUpdates := make(chan string)
 
@@ -14,7 +14,7 @@ func main() {
 
 	docker, err := NewDocker()
 
-	orchestrator := NewOrchestrator(&config, docker)
+	orchestrator := NewOrchestrator(config, docker)
 
 	commuication, err := NewCommunication("/tmp/ootp.sock", cli)
 

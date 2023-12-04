@@ -40,14 +40,22 @@ func sortbyStartupOrder(modules []Module) []Module {
 }
 
 // define a function to read the config.json and return a Config struct
-func ReadConfig(file string) Config {
+func ReadConfig(file string) (*Config, error) {
 
 	jsonStr, err := os.ReadFile("config.json")
-	check(err)
+	fmt.Println(string("my json" + string(jsonStr)))
+	if err != nil || len(jsonStr) == 0 {
+		fmt.Println("could not read config.json")
+		return nil, err // Return an error if the file can't be read
+	}
 
 	var config Config
-	check(json.Unmarshal([]byte(string(jsonStr)), &config))
-	return config
+	if err := json.Unmarshal(jsonStr, &config); err != nil {
+		fmt.Println("could not unmarshal config.json")
+		return nil, err // Return an error if unmarshalling fails
+	}
+
+	return &config, nil // Return the config only if unmarshalling is successful
 }
 
 func CompareConfigs(config1, config2 Config) []Module {

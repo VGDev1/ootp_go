@@ -9,8 +9,8 @@
         "startup_order": 2,
         "command": "tail -f /dev/null",
         "env_variables": {
-          "ENV_VAR_1": "value2",
-          "ENV_VAR_2": "value2"
+          "ENV_VAR_1": "1",
+          "ENV_VAR_2": "value_1"
         }
       },
       {
@@ -21,8 +21,8 @@
         "startup_order": 1,
         "command": "tail -f /dev/null",
         "env_variables": {
-          "ENV_VAR_A": "some_value10",
-          "ENV_VAR_B": "another_value2"
+          "ENV_VAR_A": "test",
+          "ENV_VAR_B": "value_1"
         }
       }
     ]

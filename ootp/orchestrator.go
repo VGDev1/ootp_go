@@ -22,9 +22,13 @@ func (o *Orchestrator) Watch(configUpdates chan string) {
 		select {
 		case update := <-configUpdates:
 			fmt.Println(update)
-			configNew := ReadConfig("config.json")
+			configNew, err := ReadConfig("config.json")
+			if err != nil || configNew == nil {
+				fmt.Println("Error reading config:", err)
+				continue
+			}
 			configOld := *o.Config
-			changedModules := CompareConfigs(configOld, configNew)
+			changedModules := CompareConfigs(configOld, *configNew)
 
 			if len(changedModules) == 0 {
 				fmt.Println("No modules changed")
@@ -36,7 +40,7 @@ func (o *Orchestrator) Watch(configUpdates chan string) {
 			modulesToRestart := needRestart(firstModuleToStart, configNew.Modules)
 
 			o.startModules(modulesToRestart)
-			*o.Config = configNew
+			*o.Config = *configNew
 		}
 	}
 }
